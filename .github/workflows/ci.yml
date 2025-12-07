@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    tags: [ 'v*' ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve packages
+        run: xcodebuild -resolvePackageDependencies
+      - name: Build package
+        run: xcodebuild build -scheme EmbeddedElementCall -sdk iphonesimulator
